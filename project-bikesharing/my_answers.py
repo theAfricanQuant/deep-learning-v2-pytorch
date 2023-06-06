@@ -129,12 +129,10 @@ class NeuralNetwork(object):
         # TODO: Hidden layer - replace these values with the appropriate calculations.
         hidden_inputs = None # signals into hidden layer
         hidden_outputs = None # signals from hidden layer
-        
+
         # TODO: Output layer - Replace these values with the appropriate calculations.
         final_inputs = None # signals into final output layer
-        final_outputs = None # signals from final output layer 
-        
-        return final_outputs
+        return None
 
 
 #########################################################

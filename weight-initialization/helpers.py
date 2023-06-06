@@ -12,7 +12,7 @@ def _get_loss_acc(model, train_loader, valid_loader):
     """
     n_epochs = 2
     learning_rate = 0.001
-    
+
     # Training loss
     criterion = nn.CrossEntropyLoss()
 
@@ -22,9 +22,9 @@ def _get_loss_acc(model, train_loader, valid_loader):
     # Measurements used for graphing loss
     loss_batch = []
 
-    for epoch in range(1, n_epochs+1):
-        # initialize var to monitor training loss
-        train_loss = 0.0
+    # initialize var to monitor training loss
+    train_loss = 0.0
+    for _ in range(1, n_epochs+1):
         ###################
         # train the model #
         ###################
@@ -41,7 +41,7 @@ def _get_loss_acc(model, train_loader, valid_loader):
             optimizer.step()
             # record average batch loss 
             loss_batch.append(loss.item())
-             
+
     # after training for 2 epochs, check validation accuracy 
     correct = 0
     total = 0
@@ -54,7 +54,7 @@ def _get_loss_acc(model, train_loader, valid_loader):
         # for which the predicted and true labels are equal
         total += target.size(0)
         correct += (predicted == target).sum()
-      
+
     # calculate the accuracy
     # to convert `correct` from a Tensor into a scalar, use .item()
     valid_acc = correct.item() / total

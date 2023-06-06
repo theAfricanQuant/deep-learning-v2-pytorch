@@ -9,7 +9,9 @@ def _print_success_message():
 
 class AssertTest(object):
     def __init__(self, params):
-        self.assert_param_message = '\n'.join([str(k) + ': ' + str(v) + '' for k, v in params.items()])
+        self.assert_param_message = '\n'.join(
+            [f'{str(k)}: {str(v)}' for k, v in params.items()]
+        )
 
     def test(self, assert_condition, assert_message):
         assert assert_condition, assert_message + '\n\nUnit Test Function Parameters\n' + self.assert_param_message
@@ -22,9 +24,8 @@ def test_discriminator(Discriminator):
 
     # create random image input
     x = torch.from_numpy(np.random.randint(1, size=(batch_size, 3, 32, 32))*2 -1).float()
-    
-    train_on_gpu = torch.cuda.is_available()
-    if train_on_gpu:
+
+    if train_on_gpu := torch.cuda.is_available():
         x.cuda()
 
     output = D(x)
@@ -35,7 +36,7 @@ def test_discriminator(Discriminator):
 
     correct_output_size = (batch_size, 1)
     assert_condition = output.size() == correct_output_size
-    assert_message = 'Wrong output size. Expected type {}. Got type {}'.format(correct_output_size, output.size())
+    assert_message = f'Wrong output size. Expected type {correct_output_size}. Got type {output.size()}'
     assert_test.test(assert_condition, assert_message)
 
     _print_success_message()
@@ -49,9 +50,8 @@ def test_generator(Generator):
     # create random input
     z = np.random.uniform(-1, 1, size=(batch_size, z_size))
     z = torch.from_numpy(z).float()
-    
-    train_on_gpu = torch.cuda.is_available()
-    if train_on_gpu:
+
+    if train_on_gpu := torch.cuda.is_available():
         z.cuda()
     #b = torch.LongTensor(a)
     #nn_input = torch.autograd.Variable(b)
@@ -65,7 +65,7 @@ def test_generator(Generator):
 
     correct_output_size = (batch_size, 3, 32, 32)
     assert_condition = output.size() == correct_output_size
-    assert_message = 'Wrong output size. Expected type {}. Got type {}'.format(correct_output_size, output.size())
+    assert_message = f'Wrong output size. Expected type {correct_output_size}. Got type {output.size()}'
     assert_test.test(assert_condition, assert_message)
 
     _print_success_message()

@@ -22,13 +22,13 @@ def preprocess_and_save_data(dataset_path, token_lookup, create_lookup_tables):
     Preprocess Text Data
     """
     text = load_data(dataset_path)
-    
+
     # Ignore notice, since we don't use it for analysing the data
     text = text[81:]
 
     token_dict = token_lookup()
     for key, token in token_dict.items():
-        text = text.replace(key, ' {} '.format(token))
+        text = text.replace(key, f' {token} ')
 
     text = text.lower()
     text = text.split()
@@ -46,10 +46,10 @@ def load_preprocess():
 
 
 def save_model(filename, decoder):
-    save_filename = os.path.splitext(os.path.basename(filename))[0] + '.pt'
+    save_filename = f'{os.path.splitext(os.path.basename(filename))[0]}.pt'
     torch.save(decoder, save_filename)
 
 
 def load_model(filename):
-    save_filename = os.path.splitext(os.path.basename(filename))[0] + '.pt'
+    save_filename = f'{os.path.splitext(os.path.basename(filename))[0]}.pt'
     return torch.load(save_filename)
